@@ -9,6 +9,4 @@ crate_type = ["cdylib"]
 
 [dependencies]
 bsdiff = "0.1.6"
-#bzip2-rs = "0.1.2"
-#bzip2 = "0.4.3"
 jni = "0.20.0"
