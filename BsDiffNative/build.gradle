@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group 'github.kasuminova'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    archivesBaseName = 'BsdiffNative'//基本的文件名
+    manifest { //配置 Jar 文件的 Manifest
+        attributes (
+                "Manifest-Version": 1.0,
+                'Main-Class': 'github.kasuminova.bsdiffnative.Main', //指定 Main 方法所在的文件
+        )
+    }
+
+    //打包依赖包
+    from {
+        (configurations.runtimeClasspath).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
+test {
+    useJUnitPlatform()
+}
